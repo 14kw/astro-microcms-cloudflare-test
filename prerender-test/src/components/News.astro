@@ -1,0 +1,39 @@
+---
+//microCMS呼び出し
+import { getNews } from "../library/microcmsNews";
+const response = await getNews({
+  fields: ["id", "title", "content", "publishedAt"],
+  orders: "-publishedAt",
+  limit: 10
+});
+---
+
+<section>
+    {
+        response.contents.map((news) => (
+            <details set:html={news.content}>
+                <summary>{news.publishedAt} {news.title}</summary>
+            </details>            
+        ))
+    }
+</section>
+
+<style>
+summary::-webkit-details-marker {
+    color: #00ACF3;
+}
+summary:focus {
+	outline-style: none;
+}
+details {
+	background-color: lightblue;
+    margin: 4px;
+    padding: 4px 10px;
+}
+details summary {
+    font-size: 1.2em;
+}
+details :global(img) {
+    width: 100%;
+}
+</style>
