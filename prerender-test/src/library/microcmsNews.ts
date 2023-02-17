@@ -4,6 +4,9 @@ const client = createClient({
   serviceDomain: import.meta.env.MICROCMS_SERVICE_DOMAIN,
   apiKey: import.meta.env.MICROCMS_API_KEY,
 });
+import { Cache, CacheContainer } from "node-ts-cache";
+import { MemoryStorage } from "node-ts-cache-storage-memory";
+const microCMSCache = new CacheContainer(new MemoryStorage());
 
 //型定義
 export type Category = {
@@ -14,7 +17,7 @@ export type Category = {
   revisedAt: string;
   title: string;
   name: string;
-}
+};
 export type News = {
   id: string;
   createdAt: string;
@@ -32,17 +35,33 @@ export type NewsResponse = {
   contents: News[];
 };
 
+export class CMSNews {
+  @Cache(microCMSCache, { ttl: 60 })
+  async getNews(queries?: MicroCMSQueries) {
+    return await client.get<NewsResponse>({ endpoint: "news", queries });
+  }
+  async getNewsDetail(contentId: string, queries?: MicroCMSQueries) {
+    return await client.getListDetail<News>({
+      endpoint: "news",
+      contentId,
+      queries,
+    });
+  }
+}
+
+export const cmsNews = new CMSNews();
+
 //APIの呼び出し
-export const getNews = async (queries?: MicroCMSQueries) => {
-  return await client.get<NewsResponse>({ endpoint: "news", queries });
-};
-export const getNewsDetail = async (
-  contentId: string,
-  queries?: MicroCMSQueries
-) => {
-  return await client.getListDetail<News>({
-    endpoint: "news",
-    contentId,
-    queries,
-  });
-};
+// export const getNews = async (queries?: MicroCMSQueries) => {
+//   return await client.get<NewsResponse>({ endpoint: "news", queries });
+// };
+// export const getNewsDetail = async (
+//   contentId: string,
+//   queries?: MicroCMSQueries
+// ) => {
+//   return await client.getListDetail<News>({
+//     endpoint: "news",
+//     contentId,
+//     queries,
+//   });
+// };

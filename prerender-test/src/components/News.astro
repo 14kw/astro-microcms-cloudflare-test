@@ -1,7 +1,8 @@
 ---
 //microCMS呼び出し
-import { getNews } from "../library/microcmsNews";
-const response = await getNews({
+// import { getNews } from "../library/microcmsNews";
+import { cmsNews } from "../library/microcmsNews";
+const response = await cmsNews.getNews({
   fields: ["id", "title", "content", "publishedAt"],
   orders: "-publishedAt",
   limit: 10
@@ -13,7 +14,7 @@ const response = await getNews({
         response.contents.map((news) => (
             <details set:html={news.content}>
                 <summary>{news.publishedAt} {news.title}</summary>
-            </details>            
+            </details>
         ))
     }
 </section>

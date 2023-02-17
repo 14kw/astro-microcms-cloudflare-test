@@ -13,7 +13,9 @@
   "dependencies": {
     "@astrojs/cloudflare": "^6.1.0",
     "astro": "^2.0.2",
-    "microcms-js-sdk": "^2.3.2"
+    "microcms-js-sdk": "^2.3.2",
+    "node-ts-cache": "^4.4.0",
+    "node-ts-cache-storage-memory": "^4.4.0"
   },
   "devDependencies": {
     "wrangler": "^2.8.1"
