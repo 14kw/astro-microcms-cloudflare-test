@@ -8,7 +8,9 @@ import node from "@astrojs/node";
 // https://astro.build/config
 export default defineConfig({
   output: 'server',
-  adapter: node(),
+  adapter: node({
+    mode: 'standalone'
+  }),
   vite: {
     define: {
       "process.env.MICROCMS_SERVICE_DOMAIN": JSON.stringify(process.env.MICROCMS_SERVICE_DOMAIN),
