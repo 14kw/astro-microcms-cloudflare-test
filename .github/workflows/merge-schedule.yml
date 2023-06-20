@@ -6,9 +6,9 @@ on:
       - opened
       - edited
       - synchronize
-  schedule:
-    # https://crontab.guru/every-hour
-    - cron: '*/10 * * * *'
+  # schedule:
+  #   # https://crontab.guru/every-hour
+  #   - cron: '*/10 * * * *'
 
 jobs:
   merge_schedule:
