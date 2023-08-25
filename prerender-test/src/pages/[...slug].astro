@@ -1,0 +1,30 @@
+---
+import type { AstroInstance } from "astro";
+import Layout from "../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const pages = await Astro.glob('../astrocontent/**/*.astro');
+  console.log(pages)
+  return pages.map((content) => {
+    const fileName = content.file.split('astrocontent/').pop()?.split('.')[0];
+    return {
+      params: { slug: fileName },
+      props: { content: content },
+    };
+  });
+}
+
+interface Props {
+    content: AstroInstance;
+}
+const { content } = Astro.props;
+console.log(content)
+console.log(content.file.split('astrocontent/').pop()?.split('.')[0])
+console.log(content.pageProps)
+
+export const prerender = true;
+---
+
+<Layout title={content.pageProps.title}>
+    <content.default />
+</Layout>

@@ -1,0 +1,17 @@
+---
+import Card from '@components/Card.astro';
+export const pageProps = {
+    title: 'My first blog post2',
+    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit.',
+    href: '/blog/my-first-post',
+    layout: 'blog'
+};
+---
+<main>
+    <h1>My Blog</h1>
+    <ul>
+        <li>
+            <Card title={pageProps.title} body={pageProps.body} href={pageProps.href} />
+        </li>
+    </ul>
+</main>
